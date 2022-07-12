@@ -26,5 +26,6 @@
   "devDependencies": {
     "@babel/core": "^7.12.9"
   },
-  "private": true
+  "private": true,
+  "projectConfig": "d97925da570b094d6568e5d0c4e3a587"
 }

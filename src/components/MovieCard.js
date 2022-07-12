@@ -5,11 +5,11 @@ import Fonts from "../constants/Fonts";
 import Images from "../constants/Images";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { getPoster, getLanguage } from "../services/MovieServices";
-const MovieCard = ({title, poster, language, voteAverage, voteCount}) => {
+const MovieCard = ({title, poster, language, voteAverage, voteCount, onPress}) => {
     const [liked, setLiked] = useState(false);
 
     return(
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
             <ImageBackground 
                 style={styles.container}
                 imageStyle = {{borderRadius: 12}} 

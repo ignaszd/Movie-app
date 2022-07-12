@@ -6,16 +6,19 @@ import GenreCard from '../components/GenreCard';
 import ItemSeperator from '../components/ItemSeperator';
 import Fonts from '../constants/Fonts';
 import MovieCard from '../components/MovieCard';
-import { getTopRatedMovies } from '../services/MovieServices';
-const Genres = ["All", "Comedy", "Action", "Horror", "Historical", "Silent", "Documentary"]
+import { getTopRatedMovies, getAllGenres } from '../services/MovieServices';
 
-const BrowseScreen = () => {
+const BrowseScreen = ({navigation}) => {
   const [activeGenre, setActiveGenre] = useState("All");
   const [topRatedMovies, setTopRatedMovies] = useState({});
+  const [genres, setGenres] = useState([{id: 10110, name: "All"}]);
   useEffect(() => {
     getTopRatedMovies().then((movieResponse) =>
       setTopRatedMovies(movieResponse.data)
     );
+    getAllGenres().then((genreResponse) =>
+      setGenres([...genres, ...genreResponse.data.genres])
+  );
   }, []);
   return (
     <ScrollView style={styles.container}>
@@ -30,17 +33,17 @@ const BrowseScreen = () => {
       </View>
       <View style={styles.genreListContainer}>
         <FlatList 
-          data={Genres}
+          data={genres}
           horizontal
           showsHorizontalScrollIndicator= {false}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.id.toString()}
           ItemSeparatorComponent={() => <ItemSeperator width={20} />} 
           ListHeaderComponent= {() => <ItemSeperator width={20}/>}
           ListFooterComponent = {() => <ItemSeperator width={20}/>}
           renderItem={({item}) => (
             <GenreCard 
-              genreName={item} 
-              active={item === activeGenre ? true : false}
+              genreName={item.name} 
+              active={item.name === activeGenre ? true : false}
               onPress = {setActiveGenre}
             /> 
             )}
@@ -63,6 +66,7 @@ const BrowseScreen = () => {
               voteAverage={item.vote_average}
               voteCount={item.vote_count}
               poster={item.poster_path}
+              onPress={() => navigation.navigate("details", {movieId: item.id})}
             />}
         />
       </View>
