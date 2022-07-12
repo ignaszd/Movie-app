@@ -3,4 +3,6 @@ export default {
     ACTIVE: "#057DFE",
     WHITE: "#FFFFFF",
     BLACK: "#000000",
+    HEART: "#F13939",
+    YELLOW: "#FFC107",
 }

@@ -5,6 +5,7 @@ import Colors from '../constants/Colors';
 import GenreCard from '../components/GenreCard';
 import ItemSeperator from '../components/ItemSeperator';
 import Fonts from '../constants/Fonts';
+import MovieCard from '../components/MovieCard';
 const Genres = ["All", "Comedy", "Action", "Horror", "Historical", "Silent", "Documentary"]
 
 const BrowseScreen = () => {
@@ -37,6 +38,18 @@ const BrowseScreen = () => {
             /> 
             )}
           
+        />
+      </View>
+      <View>
+        <FlatList 
+          data={Genres}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item}
+          ItemSeparatorComponent={() => <ItemSeperator width={20} />} 
+          ListHeaderComponent= {() => <ItemSeperator width={20}/>}
+          ListFooterComponent = {() => <ItemSeperator width={20}/>}
+          renderItem={({item}) => <MovieCard /> }
         />
       </View>
     </ScrollView>

@@ -11,6 +11,7 @@ export default () => {
   const [fontLoaded] = useFonts({
     Regular: require("./assets/fonts/NunitoSans-Regular.ttf"),
     Bold: require("./assets/fonts/NunitoSans-Bold.ttf"),
+    ExtraBold: require("./assets/fonts/NunitoSans-ExtraBold.ttf"),
   });
 
   return fontLoaded ? (
