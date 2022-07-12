@@ -1,15 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
 import Colors from '../constants/Colors';
 import GenreCard from '../components/GenreCard';
 import ItemSeperator from '../components/ItemSeperator';
 import Fonts from '../constants/Fonts';
 import MovieCard from '../components/MovieCard';
+import { getTopRatedMovies } from '../services/MovieServices';
 const Genres = ["All", "Comedy", "Action", "Horror", "Historical", "Silent", "Documentary"]
 
 const BrowseScreen = () => {
-  const [activeGenre, setActiveGenre] = useState("All")
+  const [activeGenre, setActiveGenre] = useState("All");
+  const [topRatedMovies, setTopRatedMovies] = useState({});
+  useEffect(() => {
+    getTopRatedMovies().then((movieResponse) =>
+      setTopRatedMovies(movieResponse.data)
+    );
+  }, []);
   return (
     <ScrollView style={styles.container}>
       <StatusBar 
@@ -42,14 +49,21 @@ const BrowseScreen = () => {
       </View>
       <View>
         <FlatList 
-          data={Genres}
-          horizontal
+          data={topRatedMovies.results}
+          horizontal 
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item}
-          ItemSeparatorComponent={() => <ItemSeperator width={20} />} 
-          ListHeaderComponent= {() => <ItemSeperator width={20}/>}
-          ListFooterComponent = {() => <ItemSeperator width={20}/>}
-          renderItem={({item}) => <MovieCard /> }
+          keyExtractor={(item) => item.id.toString()} 
+          ItemSeparatorComponent = { () => <ItemSeperator width={20}/>}
+          ListHeaderComponent= {() => <ItemSeperator width={20} />}
+          ListFooterComponent = {() => <ItemSeperator width={20} />}
+          renderItem={({item}) => 
+            <MovieCard 
+              title={item.title} 
+              language={item.original_language} 
+              voteAverage={item.vote_average}
+              voteCount={item.vote_count}
+              poster={item.poster_path}
+            />}
         />
       </View>
     </ScrollView>

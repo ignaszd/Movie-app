@@ -1,22 +1,27 @@
 import React, {useState} from "react";
-import {View, Text, StyleSheet, TouchableOpacity,Image, TouchableNativeFeedback} from "react-native"
+import {View, Text, StyleSheet, TouchableOpacity,Image, TouchableNativeFeedback, ImageBackground} from "react-native"
 import Colors from "../constants/Colors";
 import Fonts from "../constants/Fonts";
 import Images from "../constants/Images";
 import Ionicons from '@expo/vector-icons/Ionicons';
-const MovieCard = () => {
+import { getPoster, getLanguage } from "../services/MovieServices";
+const MovieCard = ({title, poster, language, voteAverage, voteCount}) => {
     const [liked, setLiked] = useState(false);
 
     return(
         <TouchableOpacity activeOpacity={0.5}>
-            <View style={styles.container}>
+            <ImageBackground 
+                style={styles.container}
+                imageStyle = {{borderRadius: 12}} 
+                source={{uri: getPoster(poster)}}
+            >
                 <View style={styles.imdbContainer}>
                     <Image 
                         source={Images.IMDB} 
                         resizeMode="cover"
                         style={styles.imdbImage}
                     />
-                    <Text style={styles.imdbRating}>9.9</Text>
+                    <Text style={styles.imdbRating}>{voteAverage}</Text>
                 </View>
                 <TouchableNativeFeedback onPress={() => setLiked(!liked)}>
                     <Ionicons 
@@ -26,11 +31,11 @@ const MovieCard = () => {
                         style={{position: "absolute", bottom:10, left:10}}   
                     />
                 </TouchableNativeFeedback>
-            </View>
+            </ImageBackground>
             <View>
-                <Text style={styles.movieTitle} numberOfLines={1}>The Godfather</Text>
+                <Text style={styles.movieTitle} numberOfLines={1}>{title}</Text>
                 <View style={styles.subTitleContainer}>
-                    <Text style={styles.subTitle}>English</Text>
+                    <Text style={styles.subTitle}>{getLanguage(language).english_name}</Text>
                     <View style={styles.rowAndCenter}>
                         <Ionicons 
                             name="heart" 
@@ -38,7 +43,7 @@ const MovieCard = () => {
                             color={Colors.HEART}
                             style={{marginRight: 5}}    
                         />
-                        <Text style={styles.subTitle}>90%</Text>
+                        <Text style={styles.subTitle}>{voteCount}</Text>
                     </View>
                 </View>
             </View>
