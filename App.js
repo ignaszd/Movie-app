@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BrowseScreen from './src/screens/BrowseScreen';
 import DetailsScreen from './src/screens/DetailsScreen';
+import PlayerScreen from './src/screens/PlayerScreen';
 import {useFonts} from "expo-font";
 import AppLoading from 'expo-app-loading';
 const Stack = createNativeStackNavigator();
@@ -24,6 +25,10 @@ export default () => {
         <Stack.Screen 
           name='details' 
           component={DetailsScreen}
+        />
+        <Stack.Screen
+          name='player'
+          component={PlayerScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

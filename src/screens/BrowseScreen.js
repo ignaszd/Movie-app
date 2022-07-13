@@ -67,7 +67,8 @@ const BrowseScreen = ({navigation}) => {
               voteCount={item.vote_count}
               poster={item.poster_path}
               onPress={() => navigation.navigate("details", {movieId: item.id})}
-            />}
+            />
+          }
         />
       </View>
     </ScrollView>

@@ -18,7 +18,7 @@ const DetailsScreen = ({route, navigation}) => {
     getMovieId(movieId, `${APPEND_TO_RESPONSE.VIDEOS}`).then((response) => setMovie(response?.data));
   }, []);
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <StatusBar style='auto'/>
       <View style={styles.moviePosterImageContainer}>
         <Image 
@@ -51,6 +51,29 @@ const DetailsScreen = ({route, navigation}) => {
           color={Colors.WHITE}
         />
       </TouchableOpacity>
+
+
+      <View style>
+        <View>
+          <TouchableOpacity 
+            activeOpacity={0.5}
+          >
+            <Text 
+              onPress={() => navigation.navigate("player", 
+              {movieKey: movie.videos.results[0].key})}
+              style={styles.playerText} 
+            >
+              Play movie trailer
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity>
+          <Text style={styles.playerText}>Add to library</Text>
+        </TouchableOpacity>  
+
+      </View>
+
+
       <Text>
         {movie.title}
       </Text>
@@ -100,6 +123,14 @@ const styles = StyleSheet.create({
     left: setWidth(50) - 70/2,
     elevation: 10,
   },
+  playerText:{
+    fontSize: 18,
+    fontFamily: Fonts.REGULAR,
+    color: Colors.ACTIVE,
+    borderTopWidth: 1,
+    borderColor: Colors.BLACK,
+    width: 200
+  }
 });
 
 export default DetailsScreen;
