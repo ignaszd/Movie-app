@@ -5,4 +5,6 @@ export default {
     BLACK: "#000000",
     HEART: "#F13939",
     YELLOW: "#FFC107",
+    LIGHT_GRAY: "#969696",
+    EXTRA_LIGHT_GRAY: "#E5E5E5",
 }
