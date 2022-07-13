@@ -19,7 +19,11 @@ export default () => {
   return fontLoaded ? (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="home" component={HomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="browse" component={BrowseScreen} />
         <Stack.Screen name="details" component={DetailsScreen} />
         <Stack.Screen name="player" component={PlayerScreen} />

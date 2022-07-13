@@ -7,7 +7,7 @@ import Colors from "../constants/Colors";
 const HomeScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
-      <StatusBar style="auto"  />
+      <StatusBar style="auto" />
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Ignas Zdanavičius</Text>
         <Text style={styles.subHeader}>INTERNSHIP ASSIGMENT</Text>
@@ -64,18 +64,18 @@ const styles = StyleSheet.create({
   },
   header: {
     fontFamily: Fonts.EXTRA_BOLD,
-    fontSize: 18
+    fontSize: 18,
   },
   subHeader: {
     fontSize: 10,
     fontFamily: Fonts.BOLD,
-    color: Colors.LIGHT_GRAY
+    color: Colors.LIGHT_GRAY,
   },
   footer: {
     position: "absolute",
     bottom: 10,
     fontFamily: Fonts.BOLD,
-    fontSize: 12
+    fontSize: 12,
   },
 });
 

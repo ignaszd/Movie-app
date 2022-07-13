@@ -52,7 +52,7 @@ const DetailsScreen = ({ route, navigation }) => {
         >
           <Feather name="chevron-left" size={35} color={Colors.WHITE} />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Share</Text>
+        
       </View>
       <ItemSeperator height={setHeight(37)} />
       <TouchableOpacity
@@ -115,7 +115,7 @@ const DetailsScreen = ({ route, navigation }) => {
             voteAverage={item.vote_average.toFixed(1)}
             voteCount={item.vote_count}
             poster={item.poster_path}
-            onPress={() => navigation.navigate("movie", { movieId: item.id })}
+            onPress={() => navigation.navigate("details", { movieId: item.id })}
           />
         )}
       />
@@ -135,7 +135,7 @@ const DetailsScreen = ({ route, navigation }) => {
             voteAverage={item.vote_average.toFixed(1)}
             voteCount={item.vote_count}
             poster={item.poster_path}
-            onPress={() => navigation.navigate("movie", { movieId: item.id })}
+            onPress={() => navigation.navigate("details", { movieId: item.id })}
           />
         )}
       />

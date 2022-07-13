@@ -6,15 +6,28 @@ import GenreCard from "../components/GenreCard";
 import ItemSeperator from "../components/ItemSeperator";
 import Fonts from "../constants/Fonts";
 import MovieCard from "../components/MovieCard";
-import { getTopRatedMovies, getAllGenres } from "../services/MovieServices";
+import {
+  getTopRatedMovies,
+  getUpcomingMovies,
+  getPopularMovies,
+  getAllGenres,
+} from "../services/MovieServices";
 
 const BrowseScreen = ({ navigation }) => {
   const [activeGenre, setActiveGenre] = useState("All");
   const [topRatedMovies, setTopRatedMovies] = useState({});
+  const [upcomingMovies, setUpcomingMovies] = useState({});
+  const [popularMovies, setPopularMovies] = useState({});
   const [genres, setGenres] = useState([{ id: 10110, name: "All" }]);
   useEffect(() => {
     getTopRatedMovies().then((movieResponse) =>
       setTopRatedMovies(movieResponse.data)
+    );
+    getUpcomingMovies().then((movieResponse) =>
+      setUpcomingMovies(movieResponse.data)
+    );
+    getPopularMovies().then((movieResponse) =>
+      setPopularMovies(movieResponse.data)
     );
     getAllGenres().then((genreResponse) =>
       setGenres([...genres, ...genreResponse.data.genres])
@@ -27,10 +40,6 @@ const BrowseScreen = ({ navigation }) => {
         translucent={false}
         backgroundColor={Colors.BASIC_BACKGROUND}
       />
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>Top Rated Movies</Text>
-        <Text style={styles.headerSubTitle}>View ALL</Text>
-      </View>
       <View style={styles.genreListContainer}>
         <FlatList
           data={genres}
@@ -49,9 +58,69 @@ const BrowseScreen = ({ navigation }) => {
           )}
         />
       </View>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Top Rated Movies</Text>
+        <Text style={styles.headerSubTitle}>View ALL</Text>
+      </View>
       <View>
         <FlatList
           data={topRatedMovies.results}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item.id.toString()}
+          ItemSeparatorComponent={() => <ItemSeperator width={20} />}
+          ListHeaderComponent={() => <ItemSeperator width={20} />}
+          ListFooterComponent={() => <ItemSeperator width={20} />}
+          renderItem={({ item }) => (
+            <MovieCard
+              title={item.title}
+              language={item.original_language}
+              voteAverage={item.vote_average}
+              voteCount={item.vote_count}
+              poster={item.poster_path}
+              onPress={() =>
+                navigation.navigate("details", { movieId: item.id })
+              }
+            />
+          )}
+        />
+      </View>
+
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Upcoming Movies</Text>
+        <Text style={styles.headerSubTitle}>View ALL</Text>
+      </View>
+      <View>
+        <FlatList
+          data={upcomingMovies.results}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item.id.toString()}
+          ItemSeparatorComponent={() => <ItemSeperator width={20} />}
+          ListHeaderComponent={() => <ItemSeperator width={20} />}
+          ListFooterComponent={() => <ItemSeperator width={20} />}
+          renderItem={({ item }) => (
+            <MovieCard
+              title={item.title}
+              language={item.original_language}
+              voteAverage={item.vote_average}
+              voteCount={item.vote_count}
+              poster={item.poster_path}
+              onPress={() =>
+                navigation.navigate("details", { movieId: item.id })
+              }
+            />
+          )}
+        />
+      </View>
+
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Popular Movies</Text>
+        <Text style={styles.headerSubTitle}>View ALL</Text>
+      </View>
+      <View>
+        <FlatList
+          data={popularMovies.results}
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.id.toString()}

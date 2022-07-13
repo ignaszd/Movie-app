@@ -1,35 +1,51 @@
-const axios = require("axios").default
+const axios = require("axios").default;
 import {
-    TMDB_BASE_URL,
-    TMDB_API_KEY,
-    TMDB_IMAGE_BASE_URL,
-    ENDPOINTS,
-    YOUTUBE_BASE_URL,
+  TMDB_BASE_URL,
+  TMDB_API_KEY,
+  TMDB_IMAGE_BASE_URL,
+  ENDPOINTS,
+  YOUTUBE_BASE_URL,
 } from "../constants/Urls";
 import LANGUAGES from "../constants/Languages";
 
 const TMDB_HTTP_REQUEST = axios.create({
-    baseURL: TMDB_BASE_URL,
-    params: {
-        api_key: TMDB_API_KEY,
-    },
+  baseURL: TMDB_BASE_URL,
+  params: {
+    api_key: TMDB_API_KEY,
+  },
 });
 
 const getTopRatedMovies = () =>
   TMDB_HTTP_REQUEST.get(ENDPOINTS.TOP_RATED_MOVIES);
 
-const getMovieId = (movieId, append_to_response="") =>
- TMDB_HTTP_REQUEST.get(`${ENDPOINTS.MOVIE}/${movieId}`, 
- append_to_response ? {params: {append_to_response}} : null);
+const getUpcomingMovies = () =>
+  TMDB_HTTP_REQUEST.get(ENDPOINTS.UPCOMING_MOVIES);
 
-const getAllGenres = () =>
-  TMDB_HTTP_REQUEST.get(ENDPOINTS.GENRES);  
+const getPopularMovies = () =>
+  TMDB_HTTP_REQUEST.get(ENDPOINTS.POPULAR_MOVIES);
+
+const getMovieId = (movieId, append_to_response = "") =>
+  TMDB_HTTP_REQUEST.get(
+    `${ENDPOINTS.MOVIE}/${movieId}`,
+    append_to_response ? { params: { append_to_response } } : null
+  );
+
+const getAllGenres = () => TMDB_HTTP_REQUEST.get(ENDPOINTS.GENRES);
 
 const getPoster = (path) => `${TMDB_IMAGE_BASE_URL}/original${path}`;
 
 const getVideo = (key) => `${YOUTUBE_BASE_URL}?v=${key}`;
 
 const getLanguage = (language_iso) =>
- LANGUAGES.find((language) => language.iso_639_1 === language_iso);
+  LANGUAGES.find((language) => language.iso_639_1 === language_iso);
 
-export {getTopRatedMovies, getPoster, getLanguage, getAllGenres, getMovieId, getVideo};
+export {
+  getTopRatedMovies,
+  getPoster,
+  getLanguage,
+  getAllGenres,
+  getMovieId,
+  getVideo,
+  getUpcomingMovies,
+  getPopularMovies,
+};
